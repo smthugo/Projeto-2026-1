@@ -44,7 +44,7 @@ def calcular_status(data_validade_str):
         return {"label": "Inválido", "classe": "bg-secondary text-white"}
 
 # ==========================================
-# TEMPLATE GLOBAL (HTML + CSS AJUSTADO)
+# TEMPLATE GLOBAL (HTML + CSS TOTALMENTE RESPONSIVO)
 # ==========================================
 
 BASE_LAYOUT = """
@@ -60,7 +60,7 @@ BASE_LAYOUT = """
         body { background-color: #f0f2f5; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden; }
         .row-container { min-height: 100vh; }
         
-        /* Sidebar Fiel ao Protótipo - Sem Relatório */
+        /* Sidebar Fiel ao Protótipo - Layout PC */
         .sidebar { background-color: #062c65; min-height: 100vh; color: white; padding: 25px 15px; }
         .sidebar h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 30px; padding-left: 10px; letter-spacing: -0.5px; }
         .sidebar .nav-link { color: #b3c5dc; border-radius: 8px; margin-bottom: 10px; padding: 12px 18px; font-weight: 500; text-decoration: none; display: block; transition: all 0.2s ease; }
@@ -111,6 +111,44 @@ BASE_LAYOUT = """
         .footer-menu { font-size: 0.85rem; color: #333333; margin-top: auto; padding-top: 30px; }
         .footer-menu a { text-decoration: none; color: #666663; margin: 0 4px; font-weight: 500; }
         .footer-menu a.active { color: #1459cb; font-weight: 600; }
+
+        /* ==================================================================
+           ADAPTAÇÃO ADICIONADA PARA CELULAR (RESPONSIVIDADE - MAX 768px)
+           ================================================================== */
+        @media (max-width: 768px) {
+            .row-container { flex-direction: column !important; }
+            
+            /* Transforma a sidebar em uma barra superior compacta */
+            .sidebar { 
+                min-height: auto !important; 
+                width: 100% !important; 
+                padding: 15px !important; 
+                text-align: center;
+            }
+            .sidebar h3 { margin-bottom: 15px; padding-left: 0; font-size: 1.25rem; }
+            
+            /* Coloca os links do menu lado a lado horizontalmente */
+            .sidebar .nav { 
+                flex-direction: row !important; 
+                justify-content: center !important; 
+                gap: 10px; 
+            }
+            .sidebar .nav-link { 
+                margin-bottom: 0 !important; 
+                padding: 8px 16px !important; 
+                font-size: 0.9rem; 
+            }
+            
+            /* Ajusta a área do conteúdo para ocupar a tela inteira do celular */
+            .main-col { width: 100% !important; padding: 10px !important; }
+            .main-container { margin: 10px 0 !important; padding: 20px !important; min-height: auto !important; }
+            
+            /* Ajustes finos nos espaçamentos internos */
+            .top-header-title { font-size: 1.35rem; }
+            .card-form { padding: 15px; }
+            .btn-salvar, .btn-limpar, .btn-novo { width: 100%; margin-bottom: 10px; }
+            .mt-4.pt-2 { display: flex; flex-direction: column; }
+        }
     </style>
 </head>
 <body>
@@ -127,7 +165,7 @@ BASE_LAYOUT = """
                 </a>
             </div>
         </div>
-        <div class="col-md-10 px-4 d-flex flex-column justify-content-between">
+        <div class="col-md-10 px-md-4 main-col d-flex flex-column justify-content-between">
             <div class="main-container d-flex flex-column justify-content-between">
                 <div class="w-100">
                     {{ content | safe }}
@@ -196,29 +234,29 @@ def cadastro():
             <h2 class="top-header-title m-0">{titulo}</h2>
             <p class="top-header-sub m-0">{subtitulo}</p>
         </div>
-        <div class="brand-badge"><i class="bi bi-hdd-network"></i> StockWeb</div>
+        <div class="brand-badge d-none d-sm-block"><i class="bi bi-hdd-network"></i> StockWeb</div>
     </div>
 
     <div class="card-form">
         <div class="card-form-title">Informações do Produto</div>
         <form action="/cadastro" method="POST">
             {id_hidden}
-            <div class="row g-4">
-                <div class="col-md-8">
+            <div class="row g-3">
+                <div class="col-md-8 col-12">
                     <label class="form-label">Nome do Produto</label>
                     <input type="text" class="form-control" name="nome" value="{nome_val}" placeholder="Digite o nome do produto" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-12">
                     <label class="form-label">Quantidade</label>
                     <input type="number" class="form-control" name="quantidade" value="{qtd_val}" placeholder="Digite a quantidade" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-12">
                     <label class="form-label">Data de Validade</label>
                     <input type="date" class="form-control" name="data_validade" value="{data_val}" required>
                 </div>
             </div>
             <div class="mt-4 pt-2">
-                <button type="submit" class="btn btn-salvar px-4 me-2"><i class="bi bi-save me-1"></i> Salvar Produto</button>
+                <button type="submit" class="btn btn-salvar px-4 me-md-2"><i class="bi bi-save me-1"></i> Salvar Produto</button>
                 <a href="/cadastro" class="btn btn-limpar px-4"><i class="bi bi-eraser me-1"></i> Limpar Campos</a>
             </div>
         </form>
@@ -265,14 +303,14 @@ def estoque():
             <h2 class="top-header-title m-0">Estoque de Produtos</h2>
             <p class="top-header-sub m-0">Visualize e gerencie todos os produtos cadastrados.</p>
         </div>
-        <div class="brand-badge"><i class="bi bi-hdd-network"></i> StockWeb</div>
+        <div class="brand-badge d-none d-sm-block"><i class="bi bi-hdd-network"></i> StockWeb</div>
     </div>
 
     <div class="row mb-3 g-2 justify-content-between align-items-center">
-        <div class="col-md-3">
-            <a href="/cadastro" class="btn btn-novo"><i class="bi bi-plus-lg me-1"></i> Novo Produto</a>
+        <div class="col-md-3 col-12">
+            <a href="/cadastro" class="btn btn-novo w-100 text-center"><i class="bi bi-plus-lg me-1"></i> Novo Produto</a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12">
             <form method="GET" action="/estoque" class="input-group">
                 <input type="text" class="form-control" name="busca" value="{busca}" placeholder="Buscar produto...">
                 <button class="btn btn-light border border-start-0" type="submit" style="background: #fff; color: #666;"><i class="bi bi-search"></i></button>
@@ -280,7 +318,7 @@ def estoque():
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
         <table class="table">
             <thead>
                 <tr>
