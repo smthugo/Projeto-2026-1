@@ -44,7 +44,7 @@ def calcular_status(data_validade_str):
         return {"label": "Inválido", "classe": "bg-secondary text-white"}
 
 # ==========================================
-# TEMPLATE GLOBAL (HTML + CSS IDENTICO AO PROTÓTIPO)
+# TEMPLATE GLOBAL (HTML + CSS AJUSTADO)
 # ==========================================
 
 BASE_LAYOUT = """
@@ -60,7 +60,7 @@ BASE_LAYOUT = """
         body { background-color: #f0f2f5; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden; }
         .row-container { min-height: 100vh; }
         
-        /* Sidebar Fiel ao Protótipo */
+        /* Sidebar Fiel ao Protótipo - Sem Relatório */
         .sidebar { background-color: #062c65; min-height: 100vh; color: white; padding: 25px 15px; }
         .sidebar h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 30px; padding-left: 10px; letter-spacing: -0.5px; }
         .sidebar .nav-link { color: #b3c5dc; border-radius: 8px; margin-bottom: 10px; padding: 12px 18px; font-weight: 500; text-decoration: none; display: block; transition: all 0.2s ease; }
@@ -82,7 +82,7 @@ BASE_LAYOUT = """
         .form-control::placeholder { color: #aaaaaa; }
         .form-control:focus { border-color: #1b52a4; box-shadow: none; }
         
-        /* Botões do Protótipo */
+        /* Botões */
         .btn-salvar { background-color: #1459cb; color: white; border: none; padding: 10px 20px; font-weight: 500; border-radius: 6px; font-size: 0.9rem; }
         .btn-salvar:hover { background-color: #0f46a3; color: white; }
         .btn-limpar { background-color: #7a828a; color: white; border: none; padding: 10px 20px; font-weight: 500; border-radius: 6px; font-size: 0.9rem; }
@@ -90,24 +90,24 @@ BASE_LAYOUT = """
         .btn-novo { background-color: #1459cb; color: white; border: none; padding: 10px 18px; font-weight: 500; border-radius: 6px; font-size: 0.9rem; }
         .btn-novo:hover { background-color: #0f46a3; color: white; }
         
-        /* Tabela Estilizada */
+        /* Tabela */
         .table { margin-top: 15px; border-collapse: separate; border-spacing: 0; width: 100%; }
         .table thead th { background-color: #f4f6f8; color: #333333; font-weight: 600; font-size: 0.9rem; padding: 14px; border-bottom: 1px solid #e1e4e8; border-top: 1px solid #e1e4e8; }
         .table tbody td { padding: 14px; font-size: 0.92rem; color: #333333; border-bottom: 1px solid #e1e4e8; vertical-align: middle; }
         
-        /* Badges de Status Idênticas à Imagem */
+        /* Badges de Status */
         .status-badge { padding: 4px 14px; border-radius: 12px; font-size: 0.82rem; font-weight: 500; display: inline-block; }
         .status-proximo { background-color: #fef3d6; color: #b27b10; }
         .status-valido { background-color: #e3f7ed; color: #218353; }
         .status-vencido { background-color: #fde7e9; color: #ca333f; }
         
-        /* Botões de Ação Quadrados */
+        /* Botões de Ação */
         .btn-action-edit { background-color: #1459cb; color: white; width: 34px; height: 34px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; border: none; font-size: 0.9rem; }
         .btn-action-edit:hover { background-color: #0f46a3; color: white; }
         .btn-action-delete { background-color: #d92534; color: white; width: 34px; height: 34px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; border: none; font-size: 0.9rem; margin-left: 4px; }
         .btn-action-delete:hover { background-color: #b31d2a; color: white; }
         
-        /* Rodapé Textual Sincronizado */
+        /* Rodapé Sincronizado */
         .footer-menu { font-size: 0.85rem; color: #333333; margin-top: auto; padding-top: 30px; }
         .footer-menu a { text-decoration: none; color: #666663; margin: 0 4px; font-weight: 500; }
         .footer-menu a.active { color: #1459cb; font-weight: 600; }
@@ -125,9 +125,6 @@ BASE_LAYOUT = """
                 <a href="/estoque" class="nav-link {% if active_page == 'estoque' %}active{% endif %}">
                     <i class="bi bi-box-seam me-2"></i> Estoque
                 </a>
-                <a href="/estoque" class="nav-link">
-                    <i class="bi bi-graph-up me-2"></i> Relatório
-                </a>
             </div>
         </div>
         <div class="col-md-10 px-4 d-flex flex-column justify-content-between">
@@ -138,8 +135,7 @@ BASE_LAYOUT = """
                 <div class="footer-menu text-start border-top pt-3 w-100">
                     Menu: 
                     <a href="/cadastro" class="{% if active_page == 'cadastro' %}active{% endif %}">Cadastro</a> | 
-                    <a href="/estoque" class="{% if active_page == 'estoque' %}active{% endif %}">Estoque</a> | 
-                    <a href="/estoque">Relatório</a>
+                    <a href="/estoque" class="{% if active_page == 'estoque' %}active{% endif %}">Estoque</a>
                 </div>
             </div>
         </div>
